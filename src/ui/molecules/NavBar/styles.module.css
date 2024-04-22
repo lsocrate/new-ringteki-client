@@ -1,0 +1,67 @@
+.navbar {
+  background-color: #333;
+  height: 25px;
+  padding: 3px 0 2px;
+}
+
+.navbarInner {
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.logoArea {
+  flex: 0 0 100px;
+}
+
+.linksArea {
+  flex: 1;
+}
+
+.gameCountArea {
+  flex: 0 0 200px;
+  text-align: right;
+}
+
+.authArea {
+  flex: 0 0 200px;
+}
+
+.linksArea > li {
+  display: inline-block;
+  height: 25px;
+  padding: 0 10px;
+}
+
+.linksArea .dropdown {
+  display: none;
+}
+
+.dropdownActivator {
+  position: relative;
+}
+
+.dropdownActivator:hover .dropdown {
+  display: block;
+  position: absolute;
+  margin: 0 -10px;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
+  z-index: 1;
+  width: 150px;
+}
+
+.dropdown > li {
+  padding: 5px 0;
+  border-top: 1px solid #ccc;
+  list-style: none;
+}
+
+.dropdown > li:first-child {
+  padding: 5px 0;
+  border-top: none;
+}

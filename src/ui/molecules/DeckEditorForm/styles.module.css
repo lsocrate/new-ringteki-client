@@ -1,0 +1,39 @@
+.form input,
+.form select,
+.form textarea {
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  box-sizing: content-box;
+  flex: 1;
+}
+
+.form > div {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.form label {
+  text-align: right;
+  font-weight: bold;
+  flex: 0 0 3ch;
+}
+.form label:first-child {
+  flex: 0 0 10ch;
+}
+
+.form .card {
+  flex: 1;
+}
+
+.form .num {
+  --size: 4ch;
+  width: var(--size);
+  flex: 0 0 var(--size);
+  text-align: right;
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+}

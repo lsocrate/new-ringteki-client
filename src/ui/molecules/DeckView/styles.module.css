@@ -1,0 +1,36 @@
+.buttons,
+.meta,
+.deck {
+  margin-top: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.meta {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.metaCenter {
+  flex: 1;
+  max-width: 25ch;
+}
+.metaCenter div {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.deck {
+  display: flex;
+  gap: 20px;
+}
+
+.deck > div {
+  flex: 1;
+}

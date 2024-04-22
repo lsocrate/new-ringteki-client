@@ -1,0 +1,24 @@
+.noMargin,
+.buttonLike {
+  display: inline-block;
+  color: #fff;
+  background-color: var(--background-emphasis);
+  cursor: pointer;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  border-radius: 4px;
+  user-select: none;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.buttonLike {
+  margin-bottom: 1rem;
+}
+
+.noMargin:hover,
+.buttonLike:hover {
+  background-color: var(--background-emphasis-dark2);
+}

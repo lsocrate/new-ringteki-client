@@ -1,0 +1,30 @@
+.newsEntry {
+  margin-top: 0.5rem;
+}
+.newsEntry:first-child {
+  margin-top: 0;
+}
+
+.newsEntry strong {
+  display: inline-block;
+  width: 10ch;
+}
+
+.info {
+  display: grid;
+  gap: 48px 24px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.infoTop img {
+  display: inline-block;
+  margin: 0 0.5rem -0.2rem 0
+}
+
+.infoBottom {
+  grid-column: 1 / 3;
+}
+.infoBottom img {
+  display: block;
+  margin: 0 auto;
+}

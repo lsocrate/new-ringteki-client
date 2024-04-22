@@ -1,0 +1,10 @@
+.display {
+  align-items: center;
+  height: 419px;
+  width: 300px;
+  position: absolute;
+  right: 8px;
+  top: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+}

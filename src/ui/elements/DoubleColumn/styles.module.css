@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.left {
+  max-width: 80ch;
+  flex: 1;
+}
+
+.right {
+  max-width: 120ch;
+  flex: 2;
+}

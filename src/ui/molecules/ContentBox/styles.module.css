@@ -1,0 +1,59 @@
+.box {
+  --radius: 4px;
+}
+
+.external {
+  min-width: 50ch;
+}
+
+.title,
+.content {
+  border: 1px solid rgba(71, 58, 56, 0.65);
+}
+
+.title {
+  padding: 8px 0;
+  background-color: var(--background-emphasis);
+  border-radius: var(--radius) var(--radius) 0 0;
+  border-bottom: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 1.1;
+  color: var(--foreground-rgb-intense);
+}
+
+.content {
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.content h2,
+.content h3,
+.content h4 {
+  margin: 1rem 0 0.5rem;
+  line-height: 1.1;
+  color: var(--foreground-rgb-intense);
+}
+
+.content h2 {
+  font-size: 1.4rem;
+}
+
+.content h3 {
+  font-size: 1.2rem;
+}
+
+.content h4 {
+  font-size: 1rem;
+}
+
+.content p + p {
+  margin-top: 0.25rem;
+}
+
+.content ul,
+.content ol {
+  margin: 0 0 0.5rem 1rem;
+}
