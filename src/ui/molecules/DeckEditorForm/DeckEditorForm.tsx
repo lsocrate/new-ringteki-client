@@ -11,9 +11,8 @@ import { cardHumanName } from "@/lib/text/cardHumanName";
 import { Button } from "@/ui/elements/Button/Button";
 import { usePrompt } from "@/context/PromptOverlayProvider";
 import { CardListItem } from "@/data/fetchDecks";
-import type { Decklist } from "@/data/emeraldDB";
+import { fetchDecklistFromEmeraldDB, type Decklist } from "@/data/emeraldDB";
 
-import { ImportDeckModal } from "./ImportDeckModal";
 import styles from "./styles.module.css";
 
 function useCardList() {
@@ -102,17 +101,43 @@ export function DeckEditorForm() {
     synchronizeDeckWithDisplay();
     prompt.close();
   }, []);
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const promptImportDeck = useCallback(
-    () =>
-      prompt.open({
-        title: "Provide Permalink URL",
-        children: <ImportDeckModal onDone={handleImportedData} />,
-      }),
+    () => dialogRef.current?.showModal(),
     [],
   );
 
   return (
     <>
+      <dialog ref={dialogRef} className={styles.deckImport}>
+        <form
+          onSubmit={(ev) => {
+            ev.preventDefault();
+
+            const url = new FormData(ev.currentTarget).get("url") as string;
+            if (!url) {
+              return;
+            }
+
+            fetchDecklistFromEmeraldDB(url).then(handleImportedData);
+          }}
+        >
+          <input
+            type="url"
+            name="url"
+            placeholder="https://www.emeralddb.org/decks/1234"
+          />
+          <Button
+            type="submit"
+            onClick={() => {
+              console.log(1);
+            }}
+          >
+            Import
+          </Button>
+        </form>
+      </dialog>
       <div className={styles.top}>
         <Button onClick={promptImportDeck}>Import deck</Button>
         <p>
