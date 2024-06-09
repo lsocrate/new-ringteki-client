@@ -41,5 +41,18 @@
 .deckImport {
   width: 80ch;
   background: rgba(0, 0, 0, 0.8);
-  align-self: center;
+  justify-self: center;
+  padding: 1rem;
+  z-index: 1;
+}
+
+.deckImport input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.deckImport button {
+  width: 100%;
 }

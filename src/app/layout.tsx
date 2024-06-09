@@ -3,7 +3,6 @@ import "./globals.css";
 import { NavBar } from "@/ui/molecules/NavBar/NavBar";
 import { HoveredCardDisplay } from "@/ui/molecules/HoveredCardDisplay/HoveredCardDisplay";
 import { CardProvider } from "@/context/CardProvider";
-import { PromptOverlayProvider } from "@/context/PromptOverlayProvider";
 
 export const metadata: Metadata = {
   title: "Jigoku Online - Play Legend of the Five Rings LCG in your browser",
@@ -18,15 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <PromptOverlayProvider>
-          <NavBar />
-          <main>
-            <CardProvider>
-              <HoveredCardDisplay />
-              {children}
-            </CardProvider>
-          </main>
-        </PromptOverlayProvider>
+        <NavBar />
+        <main>
+          <CardProvider>
+            <HoveredCardDisplay />
+            {children}
+          </CardProvider>
+        </main>
       </body>
     </html>
   );

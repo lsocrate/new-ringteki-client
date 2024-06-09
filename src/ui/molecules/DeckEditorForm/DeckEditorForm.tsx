@@ -9,11 +9,11 @@ import { formats } from "@/data/formats";
 import { useDeckEditing } from "@/context/DeckEditing";
 import { cardHumanName } from "@/lib/text/cardHumanName";
 import { Button } from "@/ui/elements/Button/Button";
-import { usePrompt } from "@/context/PromptOverlayProvider";
 import { CardListItem } from "@/data/fetchDecks";
-import { fetchDecklistFromEmeraldDB, type Decklist } from "@/data/emeraldDB";
+import { Decklist } from "@/data/emeraldDB";
 
 import styles from "./styles.module.css";
+import { DeckImportPrompt } from "./DeckImportPrompt";
 
 function useCardList() {
   const cardRegistry = useCards();
@@ -90,7 +90,6 @@ export function DeckEditorForm() {
     deckRef,
   });
 
-  const prompt = usePrompt();
   const handleImportedData = useCallback((imported: Decklist) => {
     nameRef.current!.value = imported.name;
     formatRef.current!.value = imported.format;
@@ -99,7 +98,6 @@ export function DeckEditorForm() {
     deckRef.current!.value = "oj oj oj";
 
     synchronizeDeckWithDisplay();
-    prompt.close();
   }, []);
 
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -111,33 +109,14 @@ export function DeckEditorForm() {
   return (
     <>
       <dialog ref={dialogRef} className={styles.deckImport}>
-        <form
-          onSubmit={(ev) => {
-            ev.preventDefault();
-
-            const url = new FormData(ev.currentTarget).get("url") as string;
-            if (!url) {
-              return;
-            }
-
-            fetchDecklistFromEmeraldDB(url).then(handleImportedData);
+        <DeckImportPrompt
+          onDeckFetched={(decklist) => {
+            handleImportedData(decklist);
+            dialogRef.current?.close();
           }}
-        >
-          <input
-            type="url"
-            name="url"
-            placeholder="https://www.emeralddb.org/decks/1234"
-          />
-          <Button
-            type="submit"
-            onClick={() => {
-              console.log(1);
-            }}
-          >
-            Import
-          </Button>
-        </form>
+        />
       </dialog>
+
       <div className={styles.top}>
         <Button onClick={promptImportDeck}>Import deck</Button>
         <p>

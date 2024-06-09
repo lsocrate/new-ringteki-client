@@ -82,21 +82,18 @@ export type CardListItem = {
 };
 export type CardListEntry = [string, CardListItem];
 export async function fetchCardList() {
-  const cardList = [] as Array<CardListEntry>;
+  const cardList = new Map<string, CardListItem>();
   const [cards, packs] = await Promise.all([fetchCards(), fetchPacks()]);
   for (const [id, card] of cards) {
     const packName = packs.byId.get(card.pack)!;
-    cardList.push([
-      id,
-      {
-        name: card.name,
-        image: `https://jigoku.online/img/cards/${id}.jpg`,
-        pack: packName,
-        typeInDeck: typeInDeck(card)!,
-      },
-    ]);
+    cardList.set(id, {
+      name: card.name,
+      image: `https://jigoku.online/img/cards/${id}.jpg`,
+      pack: packName,
+      typeInDeck: typeInDeck(card)!,
+    });
   }
-  return cardList;
+  return Array.from(cardList);
 }
 
 type NameValue = { name: string; value: string };

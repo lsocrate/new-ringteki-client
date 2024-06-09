@@ -5,6 +5,7 @@ export function Button(p: {
   onClick?: () => void;
   onMouseDown?: (ev: any) => void;
   type?: "submit" | "reset";
+  disabled?: boolean;
 }) {
   return (
     <button
@@ -12,6 +13,7 @@ export function Button(p: {
       onClick={p.onClick}
       onMouseDown={p.onClick}
       className={styles.button}
+      disabled={p.disabled}
     >
       {p.children}
     </button>

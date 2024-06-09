@@ -1,44 +1,61 @@
 "use client";
 
-import { fetchDecklistFromEmeraldDB } from "@/data/emeraldDB";
+import { Decklist, fetchDecklistFromEmeraldDB } from "@/data/emeraldDB";
 import { Button } from "@/ui/elements/Button/Button";
-import { useCallback, useRef } from "react";
+import { FC, useState } from "react";
 
-export function DeckImportPrompt(props: { open: boolean }) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const promptImportDeck = useCallback(
-    () => dialogRef.current?.showModal(),
-    [],
-  );
+function safeParseUrl(url: string) {
+  try {
+    return new URL(url);
+  } catch (e) {
+    return;
+  }
+}
+
+export const DeckImportPrompt: FC<{
+  onDeckFetched: (decklist: Decklist) => void;
+}> = (props) => {
+  const [importingDeck, setImportingDeck] = useState(false);
 
   return (
-    <dialog ref={dialogRef} open={props.open}>
-      <form
-        onSubmit={(ev) => {
-          ev.preventDefault();
+    <form
+      onSubmit={async (ev) => {
+        ev.preventDefault();
+        setImportingDeck(true);
 
-          const url = new FormData(ev.currentTarget).get("url") as string;
-          if (!url) {
-            return;
-          }
+        const url = new FormData(ev.currentTarget).get("url");
+        if (typeof url !== "string") {
+          return;
+        }
 
-          fetchDecklistFromEmeraldDB(url).then((a) => console.log(a));
-        }}
-      >
-        <input
-          type="url"
-          name="url"
-          placeholder="https://www.emeralddb.org/decks/1234"
-        />
-        <Button
-          type="submit"
-          onClick={() => {
-            console.log(1);
-          }}
-        >
-          Import
-        </Button>
-      </form>
-    </dialog>
+        const inputUrl = safeParseUrl(url);
+        if (!inputUrl) {
+          ev.currentTarget.reset();
+          setImportingDeck(false);
+          return;
+        }
+
+        inputUrl.pathname = inputUrl.pathname.replace(
+          "/decks/",
+          "/api/decklists/",
+        );
+        const fetchDeckUrl = inputUrl.toString();
+        await fetchDecklistFromEmeraldDB(fetchDeckUrl).then(
+          props.onDeckFetched,
+        );
+
+        ev.currentTarget.reset();
+        setImportingDeck(false);
+      }}
+    >
+      <input
+        type="url"
+        name="url"
+        placeholder="https://www.emeralddb.org/decks/1234"
+      />
+      <Button type="submit" disabled={importingDeck}>
+        Import
+      </Button>
+    </form>
   );
-}
+};

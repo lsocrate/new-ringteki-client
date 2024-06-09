@@ -17,13 +17,13 @@ type Deck = Partial<{
 }>;
 
 type Context = {
-  updateDeck: Dispatch<SetStateAction<Deck>>;
   deck: Deck;
+  updateDeck: Dispatch<SetStateAction<Deck>>;
 };
 
 const DeckEditingContext = createContext<Context>({
-  updateDeck: () => {},
   deck: {},
+  updateDeck: () => {},
 });
 
 export function useDeckEditing() {
@@ -32,6 +32,7 @@ export function useDeckEditing() {
 
 export function DeckEditing(p: { children: React.ReactNode }) {
   const [deck, updateDeck] = useState<Deck>({});
+
   return (
     <DeckEditingContext.Provider value={{ updateDeck, deck }}>
       {p.children}
